@@ -33,8 +33,18 @@ jobs:
           # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}-${{ node-version }}
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: sibiraj-s/action-eslint@v2
+        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
+          eslint-args: '--ignore-path=.gitignore --quiet'
+          extensions: 'js,jsx,ts,tsx'
+          annotations: true
   build:
-    needs: ["its-not-my-name"]
+    needs: ["its-not-my-name", "lint"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
