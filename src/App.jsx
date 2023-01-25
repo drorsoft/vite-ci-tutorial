@@ -24,13 +24,20 @@ function App() {
                 </a>
             </div>
             <div className="card">
-                <ul>
-                    <li>Steps: Actions Vs run</li>
-                    <li><a href="https://github.com/actions/setup-node" target="_blank">setup-node action"</a></li>
-                </ul>
+
+                    Steps: Actions Vs run
+                    <br/>
+                    <a href="https://github.com/actions/setup-node" target="_blank">setup-node action"</a>
+
             </div>
             <div className="card">
                 We'd often want to do a more comlicated flow, using jobs, whichs allows us to define dependencies, conditions. etc
+            </div>
+            <div className="card">
+                What's in a job? linting, security, building,testing, deploying
+            </div>
+            <div className="card">
+                <a href="https://rhysd.github.io/actionlint/" target="_blank"> Linting the actions file </a>
             </div>
 
             </div>
