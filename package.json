@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "echo" : "I am groot"
+    "echo" : "echo I am groot"
   },
   "dependencies": {
     "react": "^18.2.0",
