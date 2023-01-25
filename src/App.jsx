@@ -29,8 +29,11 @@ function App() {
                     <li><a href="https://github.com/actions/setup-node" target="_blank">setup-node action"</a></li>
                 </ul>
             </div>
+            <div className="card">
+                We'd often want to do a more comlicated flow, using jobs, whichs allows us to define dependencies, conditions. etc
+            </div>
 
-        </div>
+            </div>
     )
 }
 
