@@ -24,7 +24,7 @@ jobs:
       - run: npm ci
       - name: Cache node modules
         id: save-cache-npm
-        uses: actions/save/restore@v3
+        uses: actions/cache/save@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -36,6 +36,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Cache node modules
+        id: save-cache-npm
+        uses: actions/cache/restore@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}-${{ env.node_version }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.node_version }}
+      - run: npm ci
       - uses: sibiraj-s/action-eslint@v2
         with:
           #          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
