@@ -3,11 +3,15 @@ run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 jobs:
   its-not-my-name:
+    strategy:
+      matrix:
+        node-version: [ 14, 16, 18 ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '${{ matrix.node-version }}'
       - run: npm run echo
+      - run: npm ci
 
