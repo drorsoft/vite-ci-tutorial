@@ -7,7 +7,8 @@
     "serve": "serve dist/",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "echo": "echo I am Groot"
   },
   "dependencies": {
     "react": "^18.2.0",
