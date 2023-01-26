@@ -3,15 +3,12 @@ run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 jobs:
   its-not-my-name:
-    strategy:
-      matrix:
-        node-version: [ 18 ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '${{ matrix.node-version }}'
+          node-version: '18'
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v3
@@ -19,6 +16,23 @@ jobs:
           # npm cache files are stored in `~/.npm` on Linux/macOS
           path: ~/.npm
           key: ${{ runner.os }}-${{matrix.node-version}}-build-${{ hashFiles('**/package-lock.json') }}
-      - run: npm run echo
+      - run: npm run echo #test
       - run: npm ci
+  build:
+    needs: ["its-not-my-name"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-${{matrix.node-version}}-build-${{ hashFiles('**/package-lock.json') }}
+      - run: npm ci #installing packages from lock file
+      - run: npm run build
 
