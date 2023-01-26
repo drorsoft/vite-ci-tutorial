@@ -18,6 +18,12 @@ jobs:
           key: ${{ runner.os }}-${{matrix.node-version}}-build-${{ hashFiles('**/package-lock.json') }}
       - run: npm run echo #test
       - run: npm ci
+      - uses: sibiraj-s/action-eslint@v2
+        with:
+          #          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
+          eslint-args: '--ignore-path=.gitignore --quiet'
+          extensions: 'js,jsx,ts,tsx'
+          annotations: true
   build:
     needs: ["its-not-my-name"]
     runs-on: ubuntu-latest
